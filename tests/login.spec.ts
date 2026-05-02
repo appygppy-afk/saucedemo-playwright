@@ -24,7 +24,7 @@ test.describe('Login Tests', () => {
     await loginPage.login('locked_out_user', 'secret_sauce');
 
     // Assert that the error message is displayed
-    const errorMsg = page.locator('[data-test="error"]');
+    const errorMsg = await loginPage.getErrorMessage();
     await expect(errorMsg).toBeVisible();
     await expect(errorMsg).toContainText('Epic sadface: Sorry, this user has been locked out.');
   });
@@ -33,7 +33,7 @@ test.describe('Login Tests', () => {
     await loginPage.login('standard_user', 'wrong_password');
 
     // Assert that the error message is displayed
-    const errorMsg = page.locator('[data-test="error"]');
+    const errorMsg = await loginPage.getErrorMessage();
     await expect(errorMsg).toBeVisible();
     await expect(errorMsg).toContainText('Epic sadface: Username and password do not match any user in this service');
   });
@@ -42,7 +42,7 @@ test.describe('Login Tests', () => {
     await loginPage.login('wrong_user', 'secret_sauce');
 
     // Assert that the error message is displayed
-    const errorMsg = page.locator('[data-test="error"]');
+    const errorMsg = await loginPage.getErrorMessage();
     await expect(errorMsg).toBeVisible();
     await expect(errorMsg).toContainText('Epic sadface: Username and password do not match any user in this service');
   });
@@ -52,7 +52,7 @@ test.describe('Login Tests', () => {
     await loginPage.login('', 'secret_sauce');
 
     // Assert that the error message is displayed
-    const errorMsg = page.locator('[data-test="error"]');
+    const errorMsg = await loginPage.getErrorMessage();
     await expect(errorMsg).toBeVisible();
     await expect(errorMsg).toContainText('Epic sadface: Username is required');
 
@@ -68,7 +68,7 @@ test.describe('Login Tests', () => {
     await loginPage.login('', '');
 
     // Assert that the error message is displayed
-    const errorMsg = page.locator('[data-test="error"]');
+    const errorMsg = await loginPage.getErrorMessage();
     await expect(errorMsg).toBeVisible();
     await expect(errorMsg).toContainText('Epic sadface: Username is required');
   });
